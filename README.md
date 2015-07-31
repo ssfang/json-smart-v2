@@ -1,5 +1,12 @@
 # json-smart-v2
 
+
+== My Changes ==
+* JsonReaderI<T>抽象函数添加了一个方法，新增json数组时多了一个索引入参：  
+  addValue(Object current, int index, Object value);默认调用addValue(Object current, Object value);
+* JSONParserBase解析json基础类的readArray里修改上述的addValue为带索引的新方法
+* 添加了测试代码，自定义json-smart\src\test\java\net\minidev\json\testForMyChanges\TestCustomJsonReaderI.java
+	
 == Changelog: ==
 
 *V 2.2*

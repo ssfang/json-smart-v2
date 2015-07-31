@@ -52,7 +52,7 @@ public abstract class JsonReaderI<T> {
 	 * called when json-smart parser start an array.
 	 * 
 	 * @param key
-	 *            the destination key name, or null.
+	 *          the destination key name, or null.
 	 */
 	public JsonReaderI<?> startArray(String key) throws ParseException, IOException {
 		throw new RuntimeException(ERR_MSG + " startArray in " + this.getClass() + " key=" + key);
@@ -79,9 +79,33 @@ public abstract class JsonReaderI<T> {
 
 	/**
 	 * add a value in an array json object.
+	 * 
+	 * @param current
+	 *          an array json object, 取决于{@link #createArray()}
+	 * @param value
+	 *          所解析的值，待添加到入参<code>current</code>中
+	 * @throws ParseException
+	 * @throws IOException
 	 */
 	public void addValue(Object current, Object value) throws ParseException, IOException {
 		throw new RuntimeException(ERR_MSG + " addValue(Object current, Object value) in " + this.getClass());
+	}
+
+	/**
+	 * add a value in an array json object.
+	 * 
+	 * @param current
+	 *          an array json object, 取决于{@link #createArray()}
+	 * @param index
+	 *          所解析的值在josn数组中的以零为基数的索引位置
+	 * @param value
+	 *          所解析的值，待添加到入参<code>current</code>中
+	 * @throws ParseException
+	 * @throws IOException
+	 */
+	public void addValue(Object current, int index, Object value) throws ParseException, IOException {
+		addValue(current, value);
+		// throw new RuntimeException(ERR_MSG + " addValue(Object current, int index, Object value) in " + this.getClass());
 	}
 
 	/**
