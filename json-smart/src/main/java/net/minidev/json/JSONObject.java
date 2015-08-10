@@ -22,8 +22,7 @@ import java.util.Map;
 import net.minidev.json.reader.JsonWriter;
 
 /**
- * A JSON object. Key value pairs are unordered. JSONObject supports
- * java.util.Map interface.
+ * A JSON object. Key value pairs are unordered. JSONObject supports java.util.Map interface.
  * 
  * @author FangYidong<fangyidong@yahoo.com.cn>
  * @author Uriel Chemouni <uchemouni@gmail.com>
@@ -44,9 +43,8 @@ public class JSONObject extends HashMap<String, Object> implements JSONAware, JS
 	// }
 
 	/**
-	 * Escape quotes, \, /, \r, \n, \b, \f, \t and other control characters
-	 * (U+0000 through U+001F). It's the same as JSONValue.escape() only for
-	 * compatibility here.
+	 * Escape quotes, \, /, \r, \n, \b, \f, \t and other control characters (U+0000 through U+001F). It's the same as
+	 * JSONValue.escape() only for compatibility here.
 	 * 
 	 * @see JSONValue#escape(String)
 	 */
@@ -59,9 +57,8 @@ public class JSONObject extends HashMap<String, Object> implements JSONAware, JS
 	}
 
 	/**
-	 * Convert a map to JSON text. The result is a JSON object. If this map is
-	 * also a JSONAware, JSONAware specific behaviours will be omitted at this
-	 * top level.
+	 * Convert a map to JSON text. The result is a JSON object. If this map is also a JSONAware, JSONAware specific behaviours
+	 * will be omitted at this top level.
 	 * 
 	 * @see net.minidev.json.JSONValue#toJSONString(Object)
 	 * 
@@ -121,10 +118,22 @@ public class JSONObject extends HashMap<String, Object> implements JSONAware, JS
 		if (obj == null)
 			return null;
 		if (obj instanceof Number)
-			return (Number)obj;
+			return (Number) obj;
 		return Long.valueOf(obj.toString());
 	}
-	
+
+	/**
+	 * A Simple Helper cast an Object to an JSONObject
+	 * 
+	 * @return a JSONObject or null
+	 */
+	public JSONObject getAsJSONObject(String key) {
+		Object obj = this.get(key);
+		if (obj instanceof JSONObject)
+			return (JSONObject) obj;
+		return null;
+	}
+
 	// /**
 	// * return a Key:value entry as stream
 	// */
@@ -147,8 +156,8 @@ public class JSONObject extends HashMap<String, Object> implements JSONAware, JS
 	// }
 
 	/**
-	 * Allows creation of a JSONObject from a Map. After that, both the
-	 * generated JSONObject and the Map can be modified independently.
+	 * Allows creation of a JSONObject from a Map. After that, both the generated JSONObject and the Map can be modified
+	 * independently.
 	 */
 	public JSONObject(Map<String, ?> map) {
 		super(map);
@@ -159,14 +168,12 @@ public class JSONObject extends HashMap<String, Object> implements JSONAware, JS
 	}
 
 	/**
-	 * Encode a map into JSON text and write it to out. If this map is also a
-	 * JSONAware or JSONStreamAware, JSONAware or JSONStreamAware specific
-	 * behaviours will be ignored at this top level.
+	 * Encode a map into JSON text and write it to out. If this map is also a JSONAware or JSONStreamAware, JSONAware or
+	 * JSONStreamAware specific behaviours will be ignored at this top level.
 	 * 
 	 * @see JSONValue#writeJSONString(Object, Appendable)
 	 */
-	public static void writeJSON(Map<String, ? extends Object> map, Appendable out, JSONStyle compression)
-			throws IOException {
+	public static void writeJSON(Map<String, ? extends Object> map, Appendable out, JSONStyle compression) throws IOException {
 		if (map == null) {
 			out.append("null");
 			return;
@@ -177,6 +184,7 @@ public class JSONObject extends HashMap<String, Object> implements JSONAware, JS
 	/**
 	 * serialize Object as json to an stream
 	 */
+	@Override
 	public void writeJSONString(Appendable out) throws IOException {
 		writeJSON(this, out, JSONValue.COMPRESSION);
 	}
@@ -184,6 +192,7 @@ public class JSONObject extends HashMap<String, Object> implements JSONAware, JS
 	/**
 	 * serialize Object as json to an stream
 	 */
+	@Override
 	public void writeJSONString(Appendable out, JSONStyle compression) throws IOException {
 		writeJSON(this, out, compression);
 	}
@@ -218,9 +227,10 @@ public class JSONObject extends HashMap<String, Object> implements JSONAware, JS
 			}
 			if (value1.equals(value2))
 				continue;
-			if (value1.getClass() .equals(value2.getClass()))
+			if (value1.getClass().equals(value2.getClass()))
 				throw new RuntimeException("JSON merge can not merge two " + value1.getClass().getName() + " Object together");
-			throw new RuntimeException("JSON merge can not merge " + value1.getClass().getName() + " with " + value2.getClass().getName());
+			throw new RuntimeException("JSON merge can not merge " + value1.getClass().getName() + " with "
+					+ value2.getClass().getName());
 		}
 		for (String key : o2.keySet()) {
 			if (o1.containsKey(key))
@@ -244,10 +254,12 @@ public class JSONObject extends HashMap<String, Object> implements JSONAware, JS
 		return o1;
 	}
 
+	@Override
 	public String toJSONString() {
 		return toJSONString(this, JSONValue.COMPRESSION);
 	}
 
+	@Override
 	public String toJSONString(JSONStyle compression) {
 		return toJSONString(this, compression);
 	}
@@ -256,6 +268,7 @@ public class JSONObject extends HashMap<String, Object> implements JSONAware, JS
 		return toJSONString(this, compression);
 	}
 
+	@Override
 	public String toString() {
 		return toJSONString(this, JSONValue.COMPRESSION);
 	}
