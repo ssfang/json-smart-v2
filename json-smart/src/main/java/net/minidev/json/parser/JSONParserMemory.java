@@ -35,12 +35,14 @@ abstract class JSONParserMemory extends JSONParserBase {
 		super(permissiveMode);
 	}
 
+	@Override
 	protected void readNQString(boolean[] stop) throws IOException {
 		int start = pos;
 		skipNQString(stop);
 		extractStringTrim(start, pos);
 	}
 
+	@Override
 	protected Object readNumber(boolean[] stop) throws ParseException, IOException {
 		int start = pos;
 		// accept first char digit or -
@@ -109,6 +111,7 @@ abstract class JSONParserMemory extends JSONParserBase {
 		// throw new ParseException(pos - 1, ERROR_UNEXPECTED_CHAR, null);
 	}
 
+	@Override
 	protected void readString() throws ParseException, IOException {
 		if (!acceptSimpleQuote && c == '\'') {
 			if (acceptNonQuote) {
@@ -117,7 +120,7 @@ abstract class JSONParserMemory extends JSONParserBase {
 			}
 			throw new ParseException(pos, ERROR_UNEXPECTED_CHAR, c);
 		}
-		int tmpP = indexOf(c, pos + 1);
+		int tmpP = indexOf((char) c, pos + 1);
 		if (tmpP == -1)
 			throw new ParseException(len, ERROR_UNEXPECTED_EOF, null);
 		extractString(pos + 1, tmpP);

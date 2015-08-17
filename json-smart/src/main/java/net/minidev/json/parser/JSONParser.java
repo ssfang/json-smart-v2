@@ -79,6 +79,7 @@ public class JSONParser {
 	 * @since 2.0.1
 	 */
 	public final static int ACCEPT_TAILLING_SPACE = 512;
+	
 	/**
 	 * smart mode, fastest parsing mode. accept lots of non standard json syntax
 	 * 
@@ -165,6 +166,7 @@ public class JSONParser {
 	/**
 	 * @deprecated prefer usage of new JSONParser(JSONParser.MODE_*)
 	 */
+	@Deprecated
 	public JSONParser() {
 		this.mode = DEFAULT_PERMISSIVE_MODE;
 	}
