@@ -35,12 +35,10 @@ import net.minidev.json.writer.JsonReaderI;
 import net.minidev.json.writer.UpdaterMapper;
 
 /**
- * JSONValue is the helper class In most of case you should use those static
- * methode to user JSON-smart
+ * JSONValue is the helper class In most of case you should use those static methode to user JSON-smart
  * 
  * 
- * The most commonly use methode are {@link #parse(String)}
- * {@link #toJSONString(Object)}
+ * The most commonly use methode are {@link #parse(String)} {@link #toJSONString(Object)}
  * 
  * @author Uriel Chemouni <uchemouni@gmail.com>
  */
@@ -51,15 +49,13 @@ public class JSONValue {
 	public static JSONStyle COMPRESSION = JSONStyle.NO_COMPRESS;
 
 	/**
-	 * Parse JSON text into java object from the input source. Please use
-	 * parseWithException() if you don't want to ignore the exception. if you
-	 * want strict input check use parseStrict()
+	 * Parse JSON text into java object from the input source. Please use parseWithException() if you don't want to ignore the
+	 * exception. if you want strict input check use parseStrict()
 	 * 
 	 * @see JSONParser#parse(Reader)
 	 * @see #parseWithException(Reader)
 	 * 
-	 * @return Instance of the following: JSONObject, JSONArray, String,
-	 *         java.lang.Number, java.lang.Boolean, null
+	 * @return Instance of the following: JSONObject, JSONArray, String, java.lang.Number, java.lang.Boolean, null
 	 * 
 	 */
 	public static Object parse(InputStream in) {
@@ -71,15 +67,13 @@ public class JSONValue {
 	}
 
 	/**
-	 * Parse JSON text into java object from the input source. Please use
-	 * parseWithException() if you don't want to ignore the exception. if you
-	 * want strict input check use parseStrict()
+	 * Parse JSON text into java object from the input source. Please use parseWithException() if you don't want to ignore the
+	 * exception. if you want strict input check use parseStrict()
 	 * 
 	 * @see JSONParser#parse(Reader)
 	 * @see #parseWithException(Reader)
 	 * 
-	 * @return Instance of the following: JSONObject, JSONArray, String,
-	 *         java.lang.Number, java.lang.Boolean, null
+	 * @return Instance of the following: JSONObject, JSONArray, String, java.lang.Number, java.lang.Boolean, null
 	 * 
 	 */
 	public static Object parse(byte[] in) {
@@ -93,7 +87,18 @@ public class JSONValue {
 	/**
 	 * Parse input json as a mapTo class
 	 * 
-	 * mapTo can be a bean
+	 * mapTo can be a bean <br>
+	 * 如果实际待解析的JSON源不是泛型所指类型，则返回值类型就不是泛型类型，不在parse调用里的异常捕获范围内 e.g
+	 * 
+	 * <pre>
+	 * Object str = JSONValue.parse(&quot;22&quot;, ArrayList.class);
+	 * System.out.println(str.getClass()); // OK, class java.lang.String
+	 * System.out.println(JSONValue.parse(&quot;22&quot;, ArrayList.class)); // OK, 22
+	 * // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.util.ArrayList
+	 * ArrayList&lt;?&gt; list = JSONValue.parse(&quot;22&quot;, ArrayList.class);// Exception
+	 * // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.util.ArrayList
+	 * System.out.println(JSONValue.parse(&quot;22&quot;, ArrayList.class).getClass()); // Exception
+	 * </pre>
 	 * 
 	 * @since 2.0
 	 */
@@ -108,15 +113,13 @@ public class JSONValue {
 	}
 
 	/**
-	 * Parse JSON text into java object from the input source. Please use
-	 * parseWithException() if you don't want to ignore the exception. if you
-	 * want strict input check use parseStrict()
+	 * Parse JSON text into java object from the input source. Please use parseWithException() if you don't want to ignore the
+	 * exception. if you want strict input check use parseStrict()
 	 * 
 	 * @see JSONParser#parse(Reader)
 	 * @see #parseWithException(Reader)
 	 * 
-	 * @return Instance of the following: JSONObject, JSONArray, String,
-	 *         java.lang.Number, java.lang.Boolean, null
+	 * @return Instance of the following: JSONObject, JSONArray, String, java.lang.Number, java.lang.Boolean, null
 	 * 
 	 */
 	public static Object parse(Reader in) {
@@ -130,7 +133,18 @@ public class JSONValue {
 	/**
 	 * Parse input json as a mapTo class
 	 * 
-	 * mapTo can be a bean
+	 * mapTo can be a bean <br>
+	 * 如果实际待解析的JSON源不是泛型所指类型，则返回值类型就不是泛型类型，不在parse调用里的异常捕获范围内 e.g
+	 * 
+	 * <pre>
+	 * Object str = JSONValue.parse(&quot;22&quot;, ArrayList.class);
+	 * System.out.println(str.getClass()); // OK, class java.lang.String
+	 * System.out.println(JSONValue.parse(&quot;22&quot;, ArrayList.class)); // OK, 22
+	 * // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.util.ArrayList
+	 * ArrayList&lt;?&gt; list = JSONValue.parse(&quot;22&quot;, ArrayList.class);// Exception
+	 * // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.util.ArrayList
+	 * System.out.println(JSONValue.parse(&quot;22&quot;, ArrayList.class).getClass()); // Exception
+	 * </pre>
 	 * 
 	 * @since 2.0
 	 */
@@ -147,7 +161,18 @@ public class JSONValue {
 	/**
 	 * Parse input json as a mapTo class
 	 * 
-	 * mapTo can be a bean
+	 * mapTo can be a bean <br>
+	 * 如果实际待解析的JSON源不是泛型所指类型，则返回值类型就不是泛型类型，不在parse调用里的异常捕获范围内 e.g
+	 * 
+	 * <pre>
+	 * Object str = JSONValue.parse(&quot;22&quot;, ArrayList.class);
+	 * System.out.println(str.getClass()); // OK, class java.lang.String
+	 * System.out.println(JSONValue.parse(&quot;22&quot;, ArrayList.class)); // OK, 22
+	 * // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.util.ArrayList
+	 * ArrayList&lt;?&gt; list = JSONValue.parse(&quot;22&quot;, ArrayList.class);// Exception
+	 * // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.util.ArrayList
+	 * System.out.println(JSONValue.parse(&quot;22&quot;, ArrayList.class).getClass()); // Exception
+	 * </pre>
 	 * 
 	 * @since 2.0
 	 */
@@ -164,7 +189,18 @@ public class JSONValue {
 	/**
 	 * Parse input json as a mapTo class
 	 * 
-	 * mapTo can be a bean
+	 * mapTo can be a bean <br>
+	 * 如果实际待解析的JSON源不是泛型所指类型，则返回值类型就不是泛型类型，不在parse调用里的异常捕获范围内 e.g
+	 * 
+	 * <pre>
+	 * Object str = JSONValue.parse(&quot;22&quot;, ArrayList.class);
+	 * System.out.println(str.getClass()); // OK, class java.lang.String
+	 * System.out.println(JSONValue.parse(&quot;22&quot;, ArrayList.class)); // OK, 22
+	 * // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.util.ArrayList
+	 * ArrayList&lt;?&gt; list = JSONValue.parse(&quot;22&quot;, ArrayList.class);// Exception
+	 * // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.util.ArrayList
+	 * System.out.println(JSONValue.parse(&quot;22&quot;, ArrayList.class).getClass()); // Exception
+	 * </pre>
 	 * 
 	 * @since 2.0
 	 */
@@ -179,7 +215,18 @@ public class JSONValue {
 	}
 
 	/**
-	 * Parse input json as a mapTo class
+	 * Parse input json as a mapTo class <br>
+	 * 如果实际待解析的JSON源不是泛型所指类型，则返回值类型就不是泛型类型，不在parse调用里的异常捕获范围内 e.g
+	 * 
+	 * <pre>
+	 * Object str = JSONValue.parse(&quot;22&quot;, ArrayList.class);
+	 * System.out.println(str.getClass()); // OK, class java.lang.String
+	 * System.out.println(JSONValue.parse(&quot;22&quot;, ArrayList.class)); // OK, 22
+	 * // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.util.ArrayList
+	 * ArrayList&lt;?&gt; list = JSONValue.parse(&quot;22&quot;, ArrayList.class);// Exception
+	 * // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.util.ArrayList
+	 * System.out.println(JSONValue.parse(&quot;22&quot;, ArrayList.class).getClass()); // Exception
+	 * </pre>
 	 * 
 	 * @since 2.0
 	 */
@@ -196,7 +243,18 @@ public class JSONValue {
 	/**
 	 * Parse input json as a mapTo class
 	 * 
-	 * mapTo can be a bean
+	 * mapTo can be a bean <br>
+	 * 如果实际待解析的JSON源不是泛型所指类型，则返回值类型就不是泛型类型，不在parse调用里的异常捕获范围内 e.g
+	 * 
+	 * <pre>
+	 * Object str = JSONValue.parse(&quot;22&quot;, ArrayList.class);
+	 * System.out.println(str.getClass()); // OK, class java.lang.String
+	 * System.out.println(JSONValue.parse(&quot;22&quot;, ArrayList.class)); // OK, 22
+	 * // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.util.ArrayList
+	 * ArrayList&lt;?&gt; list = JSONValue.parse(&quot;22&quot;, ArrayList.class);// Exception
+	 * // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.util.ArrayList
+	 * System.out.println(JSONValue.parse(&quot;22&quot;, ArrayList.class).getClass()); // Exception
+	 * </pre>
 	 * 
 	 * @since 2.0
 	 */
@@ -213,7 +271,18 @@ public class JSONValue {
 	/**
 	 * Parse input json as a mapTo class
 	 * 
-	 * mapTo can be a bean
+	 * mapTo can be a bean <br>
+	 * 如果实际待解析的JSON源不是泛型所指类型，则返回值类型就不是泛型类型，不在parse调用里的异常捕获范围内 e.g
+	 * 
+	 * <pre>
+	 * Object str = JSONValue.parse(&quot;22&quot;, ArrayList.class);
+	 * System.out.println(str.getClass()); // OK, class java.lang.String
+	 * System.out.println(JSONValue.parse(&quot;22&quot;, ArrayList.class)); // OK, 22
+	 * // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.util.ArrayList
+	 * ArrayList&lt;?&gt; list = JSONValue.parse(&quot;22&quot;, ArrayList.class);// Exception
+	 * // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.util.ArrayList
+	 * System.out.println(JSONValue.parse(&quot;22&quot;, ArrayList.class).getClass()); // Exception
+	 * </pre>
 	 * 
 	 * @since 2.0
 	 */
@@ -230,7 +299,18 @@ public class JSONValue {
 	/**
 	 * Parse input json as a mapTo class
 	 * 
-	 * mapTo can be a bean
+	 * mapTo can be a bean <br>
+	 * 如果实际待解析的JSON源不是泛型所指类型，则返回值类型就不是泛型类型，不在parse调用里的异常捕获范围内 e.g
+	 * 
+	 * <pre>
+	 * Object str = JSONValue.parse(&quot;22&quot;, ArrayList.class);
+	 * System.out.println(str.getClass()); // OK, class java.lang.String
+	 * System.out.println(JSONValue.parse(&quot;22&quot;, ArrayList.class)); // OK, 22
+	 * // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.util.ArrayList
+	 * ArrayList&lt;?&gt; list = JSONValue.parse(&quot;22&quot;, ArrayList.class);// Exception
+	 * // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.util.ArrayList
+	 * System.out.println(JSONValue.parse(&quot;22&quot;, ArrayList.class).getClass()); // Exception
+	 * </pre>
 	 * 
 	 * @since 2.0
 	 */
@@ -245,7 +325,18 @@ public class JSONValue {
 	}
 
 	/**
-	 * Parse input json as a mapTo class
+	 * Parse input json as a mapTo class <br>
+	 * 如果实际待解析的JSON源不是泛型所指类型，则返回值类型就不是泛型类型，不在parse调用里的异常捕获范围内 e.g
+	 * 
+	 * <pre>
+	 * Object str = JSONValue.parse(&quot;22&quot;, ArrayList.class);
+	 * System.out.println(str.getClass()); // OK, class java.lang.String
+	 * System.out.println(JSONValue.parse(&quot;22&quot;, ArrayList.class)); // OK, 22
+	 * // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.util.ArrayList
+	 * ArrayList&lt;?&gt; list = JSONValue.parse(&quot;22&quot;, ArrayList.class);// Exception
+	 * // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.util.ArrayList
+	 * System.out.println(JSONValue.parse(&quot;22&quot;, ArrayList.class).getClass()); // Exception
+	 * </pre>
 	 * 
 	 * @since 2.0
 	 */
@@ -259,7 +350,18 @@ public class JSONValue {
 	}
 
 	/**
-	 * Parse input json as a mapTo class
+	 * Parse input json as a mapTo class <br>
+	 * 如果实际待解析的JSON源不是泛型所指类型，则返回值类型就不是泛型类型，不在parse调用里的异常捕获范围内 e.g
+	 * 
+	 * <pre>
+	 * Object str = JSONValue.parse(&quot;22&quot;, ArrayList.class);
+	 * System.out.println(str.getClass()); // OK, class java.lang.String
+	 * System.out.println(JSONValue.parse(&quot;22&quot;, ArrayList.class)); // OK, 22
+	 * // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.util.ArrayList
+	 * ArrayList&lt;?&gt; list = JSONValue.parse(&quot;22&quot;, ArrayList.class);// Exception
+	 * // java.lang.ClassCastException: java.lang.Integer cannot be cast to java.util.ArrayList
+	 * System.out.println(JSONValue.parse(&quot;22&quot;, ArrayList.class).getClass()); // Exception
+	 * </pre>
 	 * 
 	 * @since 2.0
 	 */
@@ -274,15 +376,13 @@ public class JSONValue {
 	}
 
 	/**
-	 * Parse JSON text into java object from the input source. Please use
-	 * parseWithException() if you don't want to ignore the exception. if you
-	 * want strict input check use parseStrict()
+	 * Parse JSON text into java object from the input source. Please use parseWithException() if you don't want to ignore the
+	 * exception. if you want strict input check use parseStrict()
 	 * 
 	 * @see JSONParser#parse(String)
 	 * @see #parseWithException(String)
 	 * 
-	 * @return Instance of the following: JSONObject, JSONArray, String,
-	 *         java.lang.Number, java.lang.Boolean, null
+	 * @return Instance of the following: JSONObject, JSONArray, String, java.lang.Number, java.lang.Boolean, null
 	 * 
 	 */
 	public static Object parse(String s) {
@@ -382,8 +482,7 @@ public class JSONValue {
 	 * 
 	 * @see JSONParser
 	 * 
-	 * @return Instance of the following: JSONObject, JSONArray, String,
-	 *         java.lang.Number, java.lang.Boolean, null
+	 * @return Instance of the following: JSONObject, JSONArray, String, java.lang.Number, java.lang.Boolean, null
 	 */
 	public static Object parseWithException(byte[] in) throws IOException, ParseException {
 		return new JSONParser(DEFAULT_PERMISSIVE_MODE).parse(in, defaultReader.DEFAULT);
@@ -394,8 +493,7 @@ public class JSONValue {
 	 * 
 	 * @see JSONParser
 	 * 
-	 * @return Instance of the following: JSONObject, JSONArray, String,
-	 *         java.lang.Number, java.lang.Boolean, null
+	 * @return Instance of the following: JSONObject, JSONArray, String, java.lang.Number, java.lang.Boolean, null
 	 */
 	public static Object parseWithException(InputStream in) throws IOException, ParseException {
 		return new JSONParser(DEFAULT_PERMISSIVE_MODE).parse(in, defaultReader.DEFAULT);
@@ -406,8 +504,7 @@ public class JSONValue {
 	 * 
 	 * @see JSONParser
 	 * 
-	 * @return Instance of the following: JSONObject, JSONArray, String,
-	 *         java.lang.Number, java.lang.Boolean, null
+	 * @return Instance of the following: JSONObject, JSONArray, String, java.lang.Number, java.lang.Boolean, null
 	 */
 	public static Object parseWithException(Reader in) throws IOException, ParseException {
 		return new JSONParser(DEFAULT_PERMISSIVE_MODE).parse(in, defaultReader.DEFAULT);
@@ -418,8 +515,7 @@ public class JSONValue {
 	 * 
 	 * @see JSONParser
 	 * 
-	 * @return Instance of the following: JSONObject, JSONArray, String,
-	 *         java.lang.Number, java.lang.Boolean, null
+	 * @return Instance of the following: JSONObject, JSONArray, String, java.lang.Number, java.lang.Boolean, null
 	 */
 	public static Object parseWithException(String s) throws ParseException {
 		return new JSONParser(DEFAULT_PERMISSIVE_MODE).parse(s, defaultReader.DEFAULT);
@@ -442,8 +538,7 @@ public class JSONValue {
 	 * 
 	 * @see JSONParser
 	 * 
-	 * @return Instance of the following: JSONObject, JSONArray, String,
-	 *         java.lang.Number, java.lang.Boolean, null
+	 * @return Instance of the following: JSONObject, JSONArray, String, java.lang.Number, java.lang.Boolean, null
 	 */
 	public static Object parseStrict(Reader in) throws IOException, ParseException {
 		return new JSONParser(MODE_RFC4627).parse(in, defaultReader.DEFAULT);
@@ -454,8 +549,7 @@ public class JSONValue {
 	 * 
 	 * @see JSONParser
 	 * 
-	 * @return Instance of the following: JSONObject, JSONArray, String,
-	 *         java.lang.Number, java.lang.Boolean, null
+	 * @return Instance of the following: JSONObject, JSONArray, String, java.lang.Number, java.lang.Boolean, null
 	 */
 	public static Object parseStrict(String s) throws ParseException {
 		return new JSONParser(MODE_RFC4627).parse(s, defaultReader.DEFAULT);
@@ -520,8 +614,8 @@ public class JSONValue {
 	/**
 	 * Encode an object into JSON text and write it to out.
 	 * <p>
-	 * If this object is a Map or a List, and it's also a JSONStreamAware or a
-	 * JSONAware, JSONStreamAware or JSONAware will be considered firstly.
+	 * If this object is a Map or a List, and it's also a JSONStreamAware or a JSONAware, JSONStreamAware or JSONAware will be
+	 * considered firstly.
 	 * <p>
 	 * 
 	 * @see JSONObject#writeJSON(Map, Appendable)
@@ -541,7 +635,8 @@ public class JSONValue {
 	public final static JsonReader defaultReader = new JsonReader();
 
 	/**
-	 * remap field from java to json. 
+	 * remap field from java to json.
+	 * 
 	 * @since 2.1.1
 	 */
 	public static <T> void remapField(Class<T> type, String jsonFieldName, String javaFieldName) {
@@ -566,8 +661,8 @@ public class JSONValue {
 	/**
 	 * Encode an object into JSON text and write it to out.
 	 * <p>
-	 * If this object is a Map or a List, and it's also a JSONStreamAware or a
-	 * JSONAware, JSONStreamAware or JSONAware will be considered firstly.
+	 * If this object is a Map or a List, and it's also a JSONStreamAware or a JSONAware, JSONStreamAware or JSONAware will be
+	 * considered firstly.
 	 * <p>
 	 * 
 	 * @see JSONObject#writeJSON(Map, Appendable)
@@ -599,8 +694,8 @@ public class JSONValue {
 	/**
 	 * Encode an object into JSON text and write it to out.
 	 * <p>
-	 * If this object is a Map or a List, and it's also a JSONStreamAware or a
-	 * JSONAware, JSONStreamAware or JSONAware will be considered firstly.
+	 * If this object is a Map or a List, and it's also a JSONStreamAware or a JSONAware, JSONStreamAware or JSONAware will be
+	 * considered firstly.
 	 * <p>
 	 * 
 	 * @see JSONObject#writeJSON(Map, Appendable)
@@ -613,18 +708,15 @@ public class JSONValue {
 	/**
 	 * Convert an object to JSON text.
 	 * <p>
-	 * If this object is a Map or a List, and it's also a JSONAware, JSONAware
-	 * will be considered firstly.
+	 * If this object is a Map or a List, and it's also a JSONAware, JSONAware will be considered firstly.
 	 * <p>
-	 * DO NOT call this method from toJSONString() of a class that implements
-	 * both JSONAware and Map or List with "this" as the parameter, use
-	 * JSONObject.toJSONString(Map) or JSONArray.toJSONString(List) instead.
+	 * DO NOT call this method from toJSONString() of a class that implements both JSONAware and Map or List with "this" as the
+	 * parameter, use JSONObject.toJSONString(Map) or JSONArray.toJSONString(List) instead.
 	 * 
 	 * @see JSONObject#toJSONString(Map)
 	 * @see JSONArray#toJSONString(List)
 	 * 
-	 * @return JSON text, or "null" if value is null or it's an NaN or an INF
-	 *         number.
+	 * @return JSON text, or "null" if value is null or it's an NaN or an INF number.
 	 */
 	public static String toJSONString(Object value, JSONStyle compression) {
 		StringBuilder sb = new StringBuilder();
@@ -641,8 +733,7 @@ public class JSONValue {
 	}
 
 	/**
-	 * Escape quotes, \, /, \r, \n, \b, \f, \t and other control characters
-	 * (U+0000 through U+001F).
+	 * Escape quotes, \, /, \r, \n, \b, \f, \t and other control characters (U+0000 through U+001F).
 	 */
 	public static String escape(String s, JSONStyle compression) {
 		if (s == null)
