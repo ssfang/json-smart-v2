@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
 import net.minidev.json.JSONAware;
 import net.minidev.json.JSONAwareEx;
 import net.minidev.json.JSONStreamAware;
@@ -28,9 +29,9 @@ public class JsonWriter {
 	 * remap field name in custom classes
 	 * 
 	 * @param fromJava
-	 *            field name in java
+	 *          field name in java
 	 * @param toJson
-	 *            field name in json
+	 *          field name in json
 	 * @since 2.1.1
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -52,10 +53,12 @@ public class JsonWriter {
 			this._writer = _writer;
 		}
 	}
-	
+
 	/**
 	 * try to find a Writer by Cheking implemented interface
-	 * @param clazz class to serialize
+	 * 
+	 * @param clazz
+	 *          class to serialize
 	 * @return a Writer or null
 	 */
 	@SuppressWarnings("rawtypes")
@@ -73,31 +76,39 @@ public class JsonWriter {
 	}
 
 	final static public JsonWriterI<JSONStreamAwareEx> JSONStreamAwareWriter = new JsonWriterI<JSONStreamAwareEx>() {
-		public <E extends JSONStreamAwareEx> void writeJSONString(E value, Appendable out, JSONStyle compression) throws IOException {
+		@Override
+		public <E extends JSONStreamAwareEx> void writeJSONString(E value, Appendable out, JSONStyle compression)
+				throws IOException {
 			value.writeJSONString(out);
 		}
 	};
 
 	final static public JsonWriterI<JSONStreamAwareEx> JSONStreamAwareExWriter = new JsonWriterI<JSONStreamAwareEx>() {
-		public <E extends JSONStreamAwareEx> void writeJSONString(E value, Appendable out, JSONStyle compression) throws IOException {
+		@Override
+		public <E extends JSONStreamAwareEx> void writeJSONString(E value, Appendable out, JSONStyle compression)
+				throws IOException {
 			value.writeJSONString(out, compression);
 		}
 	};
 
 	final static public JsonWriterI<JSONAwareEx> JSONJSONAwareExWriter = new JsonWriterI<JSONAwareEx>() {
+		@Override
 		public <E extends JSONAwareEx> void writeJSONString(E value, Appendable out, JSONStyle compression) throws IOException {
 			out.append(value.toJSONString(compression));
 		}
 	};
 
 	final static public JsonWriterI<JSONAware> JSONJSONAwareWriter = new JsonWriterI<JSONAware>() {
+		@Override
 		public <E extends JSONAware> void writeJSONString(E value, Appendable out, JSONStyle compression) throws IOException {
 			out.append(value.toJSONString());
 		}
 	};
 
 	final static public JsonWriterI<Iterable<? extends Object>> JSONIterableWriter = new JsonWriterI<Iterable<? extends Object>>() {
-		public <E extends Iterable<? extends Object>> void writeJSONString(E list, Appendable out, JSONStyle compression) throws IOException {
+		@Override
+		public <E extends Iterable<? extends Object>> void writeJSONString(E list, Appendable out, JSONStyle compression)
+				throws IOException {
 			boolean first = true;
 			compression.arrayStart(out);
 			for (Object value : list) {
@@ -118,6 +129,7 @@ public class JsonWriter {
 	};
 
 	final static public JsonWriterI<Enum<?>> EnumWriter = new JsonWriterI<Enum<?>>() {
+		@Override
 		public <E extends Enum<?>> void writeJSONString(E value, Appendable out, JSONStyle compression) throws IOException {
 			@SuppressWarnings("rawtypes")
 			String s = ((Enum) value).name();
@@ -126,7 +138,9 @@ public class JsonWriter {
 	};
 
 	final static public JsonWriterI<Map<String, ? extends Object>> JSONMapWriter = new JsonWriterI<Map<String, ? extends Object>>() {
-		public <E extends Map<String, ? extends Object>> void writeJSONString(E map, Appendable out, JSONStyle compression) throws IOException {
+		@Override
+		public <E extends Map<String, ? extends Object>> void writeJSONString(E map, Appendable out, JSONStyle compression)
+				throws IOException {
 			boolean first = true;
 			compression.objectStart(out);
 			/**
@@ -160,29 +174,32 @@ public class JsonWriter {
 	 * Json-Smart V1 Beans serialiser
 	 */
 	final static public JsonWriterI<Object> beansWriter = new BeansWriter();
-	
+
 	/**
 	 * Json-Smart ArrayWriterClass
 	 */
 	final static public JsonWriterI<Object> arrayWriter = new ArrayWriter();
-	
+
 	/**
 	 * ToString Writer
 	 */
 	final static public JsonWriterI<Object> toStringWriter = new JsonWriterI<Object>() {
+		@Override
 		public void writeJSONString(Object value, Appendable out, JSONStyle compression) throws IOException {
 			out.append(value.toString());
 		}
 	};
-	
+
 	public void init() {
 		registerWriter(new JsonWriterI<String>() {
+			@Override
 			public void writeJSONString(String value, Appendable out, JSONStyle compression) throws IOException {
-				compression.writeString(out, (String) value);
+				compression.writeString(out, value);
 			}
 		}, String.class);
 
 		registerWriter(new JsonWriterI<Double>() {
+			@Override
 			public void writeJSONString(Double value, Appendable out, JSONStyle compression) throws IOException {
 				if (value.isInfinite())
 					out.append("null");
@@ -192,6 +209,7 @@ public class JsonWriter {
 		}, Double.class);
 
 		registerWriter(new JsonWriterI<Date>() {
+			@Override
 			public void writeJSONString(Date value, Appendable out, JSONStyle compression) throws IOException {
 				out.append('"');
 				JSONValue.escape(value.toString(), out, compression);
@@ -200,6 +218,7 @@ public class JsonWriter {
 		}, Date.class);
 
 		registerWriter(new JsonWriterI<Float>() {
+			@Override
 			public void writeJSONString(Float value, Appendable out, JSONStyle compression) throws IOException {
 				if (value.isInfinite())
 					out.append("null");
@@ -216,6 +235,7 @@ public class JsonWriter {
 		 */
 
 		registerWriter(new JsonWriterI<int[]>() {
+			@Override
 			public void writeJSONString(int[] value, Appendable out, JSONStyle compression) throws IOException {
 				boolean needSep = false;
 				compression.arrayStart(out);
@@ -231,6 +251,7 @@ public class JsonWriter {
 		}, int[].class);
 
 		registerWriter(new JsonWriterI<short[]>() {
+			@Override
 			public void writeJSONString(short[] value, Appendable out, JSONStyle compression) throws IOException {
 				boolean needSep = false;
 				compression.arrayStart(out);
@@ -246,6 +267,7 @@ public class JsonWriter {
 		}, short[].class);
 
 		registerWriter(new JsonWriterI<long[]>() {
+			@Override
 			public void writeJSONString(long[] value, Appendable out, JSONStyle compression) throws IOException {
 				boolean needSep = false;
 				compression.arrayStart(out);
@@ -261,6 +283,7 @@ public class JsonWriter {
 		}, long[].class);
 
 		registerWriter(new JsonWriterI<float[]>() {
+			@Override
 			public void writeJSONString(float[] value, Appendable out, JSONStyle compression) throws IOException {
 				boolean needSep = false;
 				compression.arrayStart(out);
@@ -276,6 +299,7 @@ public class JsonWriter {
 		}, float[].class);
 
 		registerWriter(new JsonWriterI<double[]>() {
+			@Override
 			public void writeJSONString(double[] value, Appendable out, JSONStyle compression) throws IOException {
 				boolean needSep = false;
 				compression.arrayStart(out);
@@ -291,6 +315,7 @@ public class JsonWriter {
 		}, double[].class);
 
 		registerWriter(new JsonWriterI<boolean[]>() {
+			@Override
 			public void writeJSONString(boolean[] value, Appendable out, JSONStyle compression) throws IOException {
 				boolean needSep = false;
 				compression.arrayStart(out);
@@ -305,6 +330,23 @@ public class JsonWriter {
 			}
 		}, boolean[].class);
 
+		// registerWriter JsonWriterI<byte[]>
+		registerWriter(new JsonWriterI<byte[]>() {
+			@Override
+			public void writeJSONString(byte[] value, Appendable out, JSONStyle compression) throws IOException {
+				boolean needSep = false;
+				compression.arrayStart(out);
+				for (byte b : value) {
+					if (needSep)
+						compression.objectNext(out);
+					else
+						needSep = true;
+					out.append(Byte.toString(b));
+				}
+				compression.arrayStop(out);
+			}
+		}, byte[].class);
+
 		registerWriterInterface(JSONStreamAwareEx.class, JsonWriter.JSONStreamAwareExWriter);
 		registerWriterInterface(JSONStreamAware.class, JsonWriter.JSONStreamAwareWriter);
 		registerWriterInterface(JSONAwareEx.class, JsonWriter.JSONJSONAwareExWriter);
@@ -317,37 +359,51 @@ public class JsonWriter {
 
 	/**
 	 * associate an Writer to a interface With Hi priority
-	 * @param interFace interface to map
-	 * @param writer writer Object
+	 * 
+	 * @param interFace
+	 *          interface to map
+	 * @param writer
+	 *          writer Object
 	 * @deprecated use registerWriterInterfaceFirst
 	 */
+	@Deprecated
 	public void addInterfaceWriterFirst(Class<?> interFace, JsonWriterI<?> writer) {
 		registerWriterInterfaceFirst(interFace, writer);
 	}
 
 	/**
 	 * associate an Writer to a interface With Low priority
-	 * @param interFace interface to map
-	 * @param writer writer Object
+	 * 
+	 * @param interFace
+	 *          interface to map
+	 * @param writer
+	 *          writer Object
 	 * @deprecated use registerWriterInterfaceLast
 	 */
+	@Deprecated
 	public void addInterfaceWriterLast(Class<?> interFace, JsonWriterI<?> writer) {
 		registerWriterInterfaceLast(interFace, writer);
 	}
 
 	/**
 	 * associate an Writer to a interface With Low priority
-	 * @param interFace interface to map
-	 * @param writer writer Object
+	 * 
+	 * @param interFace
+	 *          interface to map
+	 * @param writer
+	 *          writer Object
 	 */
 	public void registerWriterInterfaceLast(Class<?> interFace, JsonWriterI<?> writer) {
 		writerInterfaces.addLast(new WriterByInterface(interFace, writer));
 	}
-	
+
 	/**
 	 * associate an Writer to a interface With Hi priority
-	 * @param interFace interface to map
-	 * @param writer writer Object
+	 * 
+	 * @param interFace
+	 *          interface to map
+	 * @param writer
+	 *          writer Object
 	 */
 	public void registerWriterInterfaceFirst(Class<?> interFace, JsonWriterI<?> writer) {
 		writerInterfaces.addFirst(new WriterByInterface(interFace, writer));
@@ -355,8 +411,11 @@ public class JsonWriter {
 
 	/**
 	 * an alias for registerWriterInterfaceLast
-	 * @param interFace interface to map
-	 * @param writer writer Object
+	 * 
+	 * @param interFace
+	 *          interface to map
+	 * @param writer
+	 *          writer Object
 	 */
 	public void registerWriterInterface(Class<?> interFace, JsonWriterI<?> writer) {
 		registerWriterInterfaceLast(interFace, writer);
@@ -364,6 +423,7 @@ public class JsonWriter {
 
 	/**
 	 * associate an Writer to a Class
+	 * 
 	 * @param writer
 	 * @param cls
 	 */
