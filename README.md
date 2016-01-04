@@ -2,11 +2,12 @@
 
 
 == My Changes ==
-* JsonReaderI<T>³éÏóº¯ÊıÌí¼ÓÁËÒ»¸ö·½·¨£¬ĞÂÔöjsonÊı×éÊ±¶àÁËÒ»¸öË÷ÒıÈë²Î£º  
-  addValue(Object current, int index, Object value);Ä¬ÈÏµ÷ÓÃaddValue(Object current, Object value);
-* JSONParserBase½âÎöjson»ù´¡ÀàµÄreadArrayÀïĞŞ¸ÄÉÏÊöµÄaddValueÎª´øË÷ÒıµÄĞÂ·½·¨
-* Ìí¼ÓÁË²âÊÔ´úÂë£¬×Ô¶¨Òåjson-smart\src\test\java\net\minidev\json\testForMyChanges\TestCustomJsonReaderI.java
-	
+* JsonReaderI<T>æŠ½è±¡å‡½æ•°æ·»åŠ äº†ä¸€ä¸ªæ–¹æ³•ï¼Œæ–°å¢jsonæ•°ç»„æ—¶å¤šäº†ä¸€ä¸ªç´¢å¼•å…¥å‚ï¼š  
+  addValue(Object current, int index, Object value);é»˜è®¤è°ƒç”¨addValue(Object current, Object value);
+* JSONParserBaseè§£æjsonåŸºç¡€ç±»çš„readArrayé‡Œä¿®æ”¹ä¸Šè¿°çš„addValueä¸ºå¸¦ç´¢å¼•çš„æ–°æ–¹æ³•
+* æ·»åŠ äº†æµ‹è¯•ä»£ç ï¼Œè‡ªå®šä¹‰json-smart\src\test\java\net\minidev\json\testForMyChanges\TestCustomJsonReaderI.java
+
+* Bug: åŸå§‹æ•°ç»„ç±»å‹åºåˆ—åŒ–é”™è¯¯ï¼Œä¸¤ç§è§£å†³æ–¹æ¡ˆï¼šæ³¨å†Œå¤„ç†åŸå§‹æ•°ç»„ç±»å‹çš„å†™æ–¹æ³•ï¼Œå¦‚JsonWriterI<byte[]>ï¼›æˆ–è€…ä¿®æ”¹ArrayWriterç±»çš„writeJSONStringæ–¹æ³•é‡Œçš„((Object[]) value)å¼ºåˆ¶è½¬æ¢ã€‚
 == Changelog: ==
 
 *V 2.2*
