@@ -7,7 +7,9 @@
 * JSONParserBase解析json基础类的readArray里修改上述的addValue为带索引的新方法
 * 添加了测试代码，自定义json-smart\src\test\java\net\minidev\json\testForMyChanges\TestCustomJsonReaderI.java
 
-* Bug: 原始数组类型序列化错误，两种解决方案：注册处理原始数组类型的写方法，如JsonWriterI<byte[]>；或者修改ArrayWriter类的writeJSONString方法里的((Object[]) value)强制转换。
+* Bug: 原始数组类型序列化错误，两种解决方案：注册处理原始数组类型的写方法，如JsonWriterI< byte[] >；或者修改ArrayWriter类的writeJSONString方法里的((Object[]) value)强制转换。
+
+
 == Changelog: ==
 
 *V 2.2*
